@@ -1,0 +1,139 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>EcoEnergy - Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">EcoEnergy</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link active" href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'devices_list' %}">Dispositivos</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'measurements_list' %}">Mediciones</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'alerts_list' %}">Alertas</a></li>
+        </ul>
+        <div>
+          <a href="#" class="btn btn-outline-light btn-sm">Iniciar sesión</a>
+          <a href="#" class="btn btn-primary btn-sm">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container mt-4">
+    <!-- Cards resumen -->
+    <div class="row">
+      <!-- Dispositivos por categoría -->
+      <div class="col-md-4 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Dispositivos por Categoría</h5>
+            <ul class="list-group list-group-flush">
+              {% for category in categories %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ category.name }}
+                <span class="badge bg-primary rounded-pill">{{ category.devices.count }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dispositivos por zona -->
+      <div class="col-md-4 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Dispositivos por Zona</h5>
+            <ul class="list-group list-group-flush">
+              {% for zone in zones %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ zone.name }}
+                <span class="badge bg-success rounded-pill">{{ zone.devices.count }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alertas de la semana -->
+      <div class="col-md-4 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Alertas de la semana</h5>
+            {% for alert in alerts %}
+              <span class="badge bg-danger me-1">{{ alert.severity }}</span>
+            {% empty %}
+              <p class="text-muted">Sin alertas recientes</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Últimas mediciones -->
+    <div class="row mt-3">
+      <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Últimas 10 Mediciones</h5>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Fecha/Hora</th>
+                  <th>Dispositivo</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for m in measurements %}
+                <tr>
+                  <td>{{ m.measured_at|date:"Y-m-d H:i" }}</td>
+                  <td><a href="{% url 'device_detail' m.device.id %}">{{ m.device.name }}</a></td>
+                  <td>{{ m.value }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3" class="text-center text-muted">Sin mediciones</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <a href="{% url 'measurements_list' %}" class="btn btn-link">Ver todas</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alertas recientes -->
+      <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Alertas recientes</h5>
+            <ul class="list-group">
+              {% for alert in alerts %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ alert.device.name }} - {{ alert.message }}
+                <span class="badge bg-warning text-dark">{{ alert.severity }}</span>
+              </li>
+              {% empty %}
+              <li class="list-group-item text-muted">No hay alertas</li>
+              {% endfor %}
+            </ul>
+            <a href="{% url 'alerts_list' %}" class="btn btn-link">Ver todas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center py-3 mt-4 bg-light">
+    <small>© 2025 EcoEnergy | Soporte</small>
+  </footer>
+</body>
+</html>
