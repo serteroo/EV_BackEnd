@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     'monitoring_app.apps.MonitoringAppConfig',
     'accounts_app.apps.AccountsAppConfig',    # ← aquí
-
+]
 
 
 
