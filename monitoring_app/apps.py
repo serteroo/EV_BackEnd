@@ -1,6 +1,6 @@
+# monitoring_app/apps.py
 from django.apps import AppConfig
 
-
-class MonitoringConfig(AppConfig):
+class MonitoringAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'monitoring'
+    name = 'monitoring_app'   # ← EXACTO
