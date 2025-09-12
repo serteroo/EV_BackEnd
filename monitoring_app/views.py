@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required  # ← Agrega esta importación
 from .models import Organization, Category, Zone, Device, Measurement, Alert
 
-
+@login_required  # ← Agrega este decorador
 def dashboard(request):
     organizations = Organization.objects.all()
     categories = Category.objects.all()

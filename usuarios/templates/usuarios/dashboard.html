@@ -1,0 +1,33 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Dashboard - EcoEnergy{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1>Bienvenido al Dashboard</h1>
+        <p>Has iniciado sesión correctamente como <strong>{{ user.username }}</strong>.</p>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Monitoreo</h5>
+                        <p class="card-text">Accede al sistema de monitoreo</p>
+                        <a href="{% url 'monitoring_app:dashboard' %}" class="btn btn-primary">Ir a Monitoreo</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cuentas</h5>
+                        <p class="card-text">Gestiona las cuentas</p>
+                        <a href="{% url 'accounts_app:index' %}" class="btn btn-primary">Ir a Cuentas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

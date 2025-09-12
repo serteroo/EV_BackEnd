@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'usuarios',
 
 
     'monitoring_app.apps.MonitoringAppConfig',
-    'accounts_app.apps.AccountsAppConfig',    # ← aquí
+    'accounts_app.apps.AccountsAppConfig', 
+  ]  # ← aquí
 
 
 
@@ -68,9 +70,6 @@ TEMPLATES = [{
     "django.contrib.messages.context_processors.messages",
   ]},
 }]
-# Opcional (útil para la navegación post login/logout):
-LOGIN_REDIRECT_URL = "dashboard"
-LOGOUT_REDIRECT_URL = "login"
 
 
 
@@ -125,3 +124,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redirigir al login de empresa
+LOGIN_URL = 'usuarios:login_empresa'
+LOGOUT_REDIRECT_URL = 'usuarios:login_empresa'
+LOGIN_REDIRECT_URL = 'monitoring_app:dashboard'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]

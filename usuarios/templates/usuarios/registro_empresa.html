@@ -1,0 +1,90 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Registro Empresa - EcoEnergy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="text-center">Registro - Empresa</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="nombre_empresa" class="form-label">Nombre de la empresa</label>
+                        <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" 
+                               placeholder="Nombre de su empresa" required value="{{ request.POST.nombre_empresa }}"
+                               style="background-color: white; color: black; border: 1px solid #ced4da;">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               placeholder="correo@empresa.com" required value="{{ request.POST.email }}"
+                               style="background-color: white; color: black; border: 1px solid #ced4da;">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password1" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password1" name="password1" 
+                               placeholder="Crea una contraseña" required value="{{ request.POST.password1 }}"
+                               style="background-color: white; color: black; border: 1px solid #ced4da;">
+                        <div class="form-text">Mínimo 8 caracteres, no completamente numérica.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password2" class="form-label">Confirmar contraseña</label>
+                        <input type="password" class="form-control" id="password2" name="password2" 
+                               placeholder="Repite tu contraseña" required value="{{ request.POST.password2 }}"
+                               style="background-color: white; color: black; border: 1px solid #ced4da;">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success w-100">Registrar Empresa</button>
+                </form>
+                
+                <div class="text-center mt-3">
+                    <a href="{% url 'usuarios:login_empresa' %}">¿Ya tiene cuenta? Inicie sesión aquí</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Asegurar que todos los inputs sean editables */
+    .form-control {
+        background-color: white !important;
+        color: #000 !important;
+        border: 1px solid #ced4da !important;
+    }
+    
+    .form-control:focus {
+        border-color: #86b7fe !important;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+    }
+    
+    /* Remover cualquier estilo que impida la edición */
+    input[readonly], input[disabled] {
+        background-color: white !important;
+        color: #000 !important;
+        cursor: text !important;
+    }
+</style>
+
+<script>
+    // Asegurar que los inputs sean editables al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
+        inputs.forEach(input => {
+            input.removeAttribute('readonly');
+            input.removeAttribute('disabled');
+            input.style.backgroundColor = 'white';
+            input.style.color = '#000';
+            input.style.cursor = 'text';
+        });
+    });
+</script>
+{% endblock %}
