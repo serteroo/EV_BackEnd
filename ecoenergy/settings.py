@@ -37,9 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'monitoring_app', #lasapps
-    'accounts_app', #lasapps
-]
+
+
+    'monitoring_app.apps.MonitoringAppConfig',
+    'accounts_app.apps.AccountsAppConfig',    # ← aquí
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
