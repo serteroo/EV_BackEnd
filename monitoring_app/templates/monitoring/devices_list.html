@@ -29,6 +29,10 @@
     <!-- Filtros -->
     <form method="get" class="row g-3 mb-3">
       <div class="col-md-4">
+        <label for="id_q">Buscar por nombre</label><br>
+        <input id="id_q" type="text" name="q" value="{{ q }}" placeholder="Ej: Medidor 01" style="width:240px;">
+      </div>
+      <div class="col-md-4">
         <label class="form-label">Categoría</label>
         <select name="category" class="form-select">
           <option value="all">Todas</option>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Mi organización - EcoEnergy{% endblock %}
+
+{% block content %}
+  <h1>Mi organización</h1>
+
+  {% if org %}
+    <div class="box" style="max-width:640px;">
+      <p><strong>Nombre:</strong> {{ org.name }}</p>
+      <p><strong>Fecha de registro:</strong> {{ org.created_at|date:"Y-m-d H:i" }}</p>
+      <p><strong>Cantidad de dispositivos registrados:</strong> {{ devices_count }}</p>
+    </div>
+  {% else %}
+    <div class="alert">No hay una organización asociada a tu usuario.</div>
+  {% endif %}
+{% endblock %}

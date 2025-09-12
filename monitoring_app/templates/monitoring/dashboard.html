@@ -20,13 +20,25 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'alerts_list' %}">Alertas</a></li>
         </ul>
         <div>
-          <a href="#" class="btn btn-outline-light btn-sm">Iniciar sesión</a>
-          <a href="#" class="btn btn-primary btn-sm">Registrarse</a>
+          <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm">Iniciar sesión</a>
+          <a href="{% url 'register' %}" class="btn btn-primary btn-sm">Registrarse</a>
         </div>
       </div>
     </div>
   </nav>
-  
+  {% if critical_alerts %}
+    <div class="banner-critical">
+      <strong>⚠ Alertas críticas ({{ critical_alerts|length }})</strong>
+      <ul>
+        {% for a in critical_alerts %}
+          <li>
+            <a href="{% url 'device_detail' a.device.pk %}">{{ a.device.name }}</a>:
+            {{ a.message }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
   <div class="container mt-4">
     <!-- Cards resumen -->
     <div class="row">
